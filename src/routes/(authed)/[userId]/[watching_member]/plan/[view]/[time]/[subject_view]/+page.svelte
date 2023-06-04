@@ -90,18 +90,18 @@
 	h2 {
 		text-align: center;
 	}
-	views_and_users {
+	#views_and_users {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
 	}
-	.subjects {
+	/* .subjects {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: center;
-	}
+	} */
 	select {
 		height: 2.5rem;
 	}

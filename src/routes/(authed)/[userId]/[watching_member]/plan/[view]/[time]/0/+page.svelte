@@ -97,7 +97,7 @@
 		justify-content: flex-start;
 		align-items: center;
 	} */
-	select {
+	#select {
 		height: 2.5rem;
 	}
 </style>
