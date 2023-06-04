@@ -22,7 +22,7 @@ export const actions = {
 			if (user.password === password) {
 				// Set cookies
 				cookies.set('logged_in', 'true', { path: '/' });
-				console.log('cookies set to true!!!')
+				console.log('cookies set to true!')
 
 				// Get time
 				const time = getTime(user.date, user.view);
