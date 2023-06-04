@@ -1,4 +1,4 @@
-<h1>登录</h1>
+<h1>计划与现状</h1>
 
 <form class="pure-form" method="POST">
 	<label> 账号： <input type="tel" name="phone" required /> </label>
