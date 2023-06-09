@@ -21,7 +21,7 @@ export const actions = {
 			// Check if password is correct
 			if (user.password === password) {
 				// Set cookies
-				cookies.set('logged_in', 'true', { path: '/' });
+				cookies.set('logged_in', 'true', { path: '/', secure: false });
 				console.log('cookies set to true!!!')
 
 				// Get time
