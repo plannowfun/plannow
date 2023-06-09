@@ -3,7 +3,7 @@ import { prisma } from '$lib/data/db'
 import { getTime } from '$lib/data/tools';
 
 export const actions = {
-	default: async ({ request, cookies }) => {
+	default: async ({ request }) => {
 		// Get form data
 		const data = await request.formData();
 		const phone = data.get('phone');
@@ -20,15 +20,17 @@ export const actions = {
 
 			// Check if password is correct
 			if (user.password === password) {
-				// Set cookies
-				cookies.set('logged_in', 'true', { path: '/' });
-				console.log('cookies set to true!!!')
-
 				// Get time
 				const time = getTime(user.date, user.view);
 
-				// Redirect to plan page
-				throw redirect(303, `/${user.id}/${user.watching_member ?? user.id}/plan/${user.view}/${time}/${user.subject_view ?? 0}`);
+				// Redirect to plan page with Set-Cookie header
+				return {
+					status: 303,
+					headers: {
+						location: `/${user.id}/${user.watching_member ?? user.id}/plan/${user.view}/${time}/${user.subject_view ?? 0}`,
+						'Set-Cookie': 'logged_in=true; Path=/'
+					}
+				};
 			}
 		}
 	}
