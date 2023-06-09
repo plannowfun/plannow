@@ -1,9 +1,20 @@
-import type { HandleFetch } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
-export const handleFetch = (async ({ event, request, fetch }) => {
-    if (request.url.startsWith('https://api.my-domain.com/')) {
-        request.headers.set('cookie', event.request.headers.get('cookie'));
+export const handle: Handle = async ({ resolve, event }) => {
+    const protocol = event.request.headers.get('x-forwarded-proto') || 'http';
+    const origin = `${protocol}://plannow.fun`;
+    if (event.request.method === 'OPTIONS') {
+        return new Response(null, {
+            headers: {
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Origin': origin,
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Credentials': 'true'
+            }
+        });
     }
-
-    return fetch(request);
-}) satisfies HandleFetch;
+    const response = await resolve(event);
+    response.headers.append('Access-Control-Allow-Origin', origin);
+    response.headers.append('Access-Control-Allow-Credentials', 'true');
+    return response;
+};
