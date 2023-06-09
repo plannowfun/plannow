@@ -20,6 +20,10 @@ export const actions = {
 
 			// Check if password is correct
 			if (user.password === password) {
+				// Set cookies
+				cookies.set('logged_in', 'true', { path: '/'});
+				console.log('cookies set to true!!!')
+
 				// Get time
 				const time = getTime(user.date, user.view);
 
