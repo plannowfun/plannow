@@ -7,7 +7,7 @@ import { getTime, get_sorted_subjects, get_users_for_select } from '$lib/data/to
 // 路由0代表是全部主题
 export const load = (async ({ params, cookies }) => {
 
-    //* 分别获取用户本人、关注成员、家庭所有成员、该成员所有主题
+    //* 分别获取用户本人、家庭所有成员、关注成员和该成员所有主题
     const user = await prisma.user.findFirstOrThrow({
         where: {
             id: parseInt(params.userId),
@@ -26,11 +26,11 @@ export const load = (async ({ params, cookies }) => {
     })
 
     //* 如果要显示该成员的所有非隐藏主题
-
     // 按照日、周、月、年的view分类，只获取自己需要的那一类
-    let concise_record: { id: number; plan: string; status: string; };
-    let concise_subjects: { id: number, name: string, show_order: number }[] = []
-    // 获取该主题下，该用户的记录
+    interface Concise_Record { id: number; plan: string; status: string; };
+    let concise_record: Concise_Record
+    let concise_subjects: { id: number; name: string; show_order: number; record: Concise_Record | null }[] = []
+    // 获取关注用户的所有主题中，存储的记录
     for (const subject of subjects) {
         let record
         // 不获取隐藏主题
