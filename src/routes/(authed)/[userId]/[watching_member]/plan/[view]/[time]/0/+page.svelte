@@ -4,12 +4,13 @@
 	// import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import dayjs from 'dayjs';
+	import { getDate } from '$lib/data/tools.js';
 
 	const now = dayjs();
 	export let data;
 	// console.log(data.users);
 	let user_id = parseInt($page.params.userId);
-	date.set(data.last_date);
+	date.set(getDate($page.params.view, $page.params.time));
 	view.set($page.params.view);
 	// 在data.users中找到当前成员，然后让它的order作为selected
 	let selected = data.users.find((u) => u.id === parseInt($page.params.watching_member)).order;
