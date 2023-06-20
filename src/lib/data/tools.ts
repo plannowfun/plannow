@@ -35,17 +35,17 @@ export function getTimeTitle(date: number, view: string) {
     }
 }
 
-export function getDate(view:string, time:string){
+export function getDate(view: string, time: string) {
     if (view === 'day') {
         return parseInt(time)
     } else if (view === 'week') {
         // 如果time是20231，那么就是2023年的第一周，返回2023年的第一周的第一天
         // 如果time是202252，那么就是2022年的第52周，返回2022年的第52周的第一天
-        return dayjs(time.slice(0,4), 'YYYY').week(parseInt(time.slice(4))).day(0).format('YYYYMMDD')
+        return dayjs(time.slice(0, 4), 'YYYY').week(parseInt(time.slice(4))).format('YYYYMMDD')
     } else if (view === 'month') {
         // 如果time是20230，那么就是2023年的第一月，返回2023年的第一月的第一天
         // 如果time是202211，那么就是2022年的第12月，返回2022年的第12月的第一天
-        return dayjs(time, 'YYYYM').month(parseInt(time.slice(4))).format('YYYYMMDD')
+        return dayjs(time.slice(0, 4), 'YYYY').month(parseInt(time.slice(4))).format('YYYYMMDD')
     } else if (view === 'year') {
         // 如果time是2023，那么就是2023年，返回2023年的第一天
         // 如果time是2022，那么就是2022年，返回2022年的第一天
@@ -62,7 +62,7 @@ export function get_users_for_select(users: User[]) {
         return {
             id: user.id,
             name: user.name,
-            order: index +1 
+            order: index + 1
         }
     })
     return users_for_select

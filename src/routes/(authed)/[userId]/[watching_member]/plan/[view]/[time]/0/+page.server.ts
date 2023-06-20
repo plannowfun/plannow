@@ -76,12 +76,14 @@ export const actions = {
     //* 更新日期和视图
     changeView: async ({ request, params }) => {
         const data = await request.formData();
-        // console.log(data)
+        console.log('................................................................................')
+        console.log(data)
         let id, watching_member, view, date, time, subject_view
         if (data.get('date') && data.get('view')) {
             id = parseInt(params.userId)
             view = String(data.get('view'))
             date = parseInt(String(data.get('date')))
+            console.log(`parse formDate.......date: ${date}, view: ${view}`)
             await prisma.user.update({
                 //TODO 应该修改用户ID的数据，而不是watching_member
                 where: { id: id },
@@ -92,6 +94,7 @@ export const actions = {
             });
             watching_member = params.watching_member
             time = getTime(date, view)
+            console.log(`getTime............... time = ${time}`)
             subject_view = params.subject_view
             throw redirect(303, `/${id}/${watching_member}/plan/${view}/${time}/0`)
         } else {

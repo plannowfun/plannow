@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { date, view, time_title } from '$lib/data/stores';
+	import { date, view, time, time_title } from '$lib/data/stores';
 	// import { onMount, beforeUpdate } from 'svelte';
 	// import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -8,17 +8,18 @@
 
 	const now = dayjs();
 	export let data;
-	// console.log(data.users);
 	let user_id = parseInt($page.params.userId);
-	date.set(getDate($page.params.view, $page.params.time));
+	console.log(`parsing url...... view: ${$page.params.view}, time: ${$page.params.time}`);
 	view.set($page.params.view);
+	console.log(`getDate... ${getDate($page.params.view, $page.params.time)}`);
+	date.set(getDate($page.params.view, $page.params.time));
+	console.log(`reading store...... view: ${$view}, time: ${$time}, date: ${$date}`);
 	// 在data.users中找到当前成员，然后让它的order作为selected
 	let selected = data.users.find((u) => u.id === parseInt($page.params.watching_member)).order;
 	// 根据selected找到当前用户的id
 	let current_user = data.users.find((u) => u.order === selected).id;
 	let form;
 </script>
-
 
 <h2>{$time_title}</h2>
 <div id="views_and_users" class="sujects pure-g">
