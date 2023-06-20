@@ -5,8 +5,8 @@ node_modules
 /package
 .env
 .env.*
-prisma/dev.db
-prisma/prod.db
+/prisma/dev.db
+/prisma/prod.db
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
